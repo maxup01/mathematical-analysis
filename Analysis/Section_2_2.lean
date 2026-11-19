@@ -84,7 +84,11 @@ lemma Nat.add_succ (n m:Nat) : n + (m++) = (n + m)++ := by
 
 /-- {lean}`n++ = n + 1` (Why?). Compare with Mathlib's {name}`Nat.succ_eq_add_one` -/
 theorem Nat.succ_eq_add_one (n:Nat) : n++ = n + 1 := by
-  sorry
+  symm
+  calc
+  n + 1 = n + (0++) := by rw [zero_succ]
+  _     = (n + 0)++ := by rw [add_succ]
+  _     = n++       := by rw [add_zero]
 
 /-- Proposition 2.2.4 (Addition is commutative). Compare with Mathlib's {name}`Nat.add_comm` -/
 theorem Nat.add_comm (n m:Nat) : n + m = m + n := by
